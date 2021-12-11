@@ -69,7 +69,6 @@ static int run(const struct dc_posix_env *env, struct dc_error *err)
 {
     DC_TRACE(env);
 
-
     char readInChar;
     uint8_t writeOutChar = 0;
     uint8_t currentChar = 0; // 0 1 2 3
@@ -351,109 +350,109 @@ static int run(const struct dc_posix_env *env, struct dc_error *err)
 
                     break;
                 case '/': // -..-.
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
 
                     break;
                 case '\n': // .-.-
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
 
                     break;
                 case '0': // -----
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
 
                     break;
                 case '1': // .----
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
 
                     break;
                 case '2': // ..---
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
 
                     break;
                 case '3': // ...--
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
 
                     break;
                 case '4': // ....-
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
 
                     break;
                 case '5': // .....
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
 
                     break;
                 case '6': // -....
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
 
                     break;
                 case '7': // --...
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
 
                     break;
                 case '8': // ---..
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
 
                     break;
                 case '9': // ----.
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dah, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dah, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
 
                     break;
                 default: // error -> .......
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
-                pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
+                    pushValue(env, err, dit, &currentChar, &writeOutChar);
 
                     break;
             }
