@@ -72,8 +72,41 @@ static int run(const struct dc_posix_env *env, struct dc_error *err)
     int currentPos = 0; // 0 1 2 3
     uint8_t currentBitPair;
     uint8_t byteBuffer;
+    const uint8_t dit = 0b10;
+    const uint8_t dah = 0b01;
+    const uint8_t space = 0b11;
+    const uint8_t eoc = 0b00;
 
     while (readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair)) {
+        dc_write(env, err, STDOUT_FILENO, &currentBitPair, 1);
+        switch (currentBitPair) {
+            case dit:
+                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                switch (currentBitPair) {
+                    case dit:
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        break;
+                    case dah:
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        break;
+                    case eoc: 
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        break;
+                }
+                break;
+            case dah:
+                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                break;
+            case space:
+                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                dc_write(env, err, STDOUT_FILENO, " ", 1);
+                break;
+            case eoc: // eoc at the beginning of new character? gotta be end of file
+                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                break;
+            default:
+                return EXIT_FAILURE;
+        }
 
     }
 
