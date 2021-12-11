@@ -89,7 +89,7 @@ static int run(const struct dc_posix_env *env, struct dc_error *err)
                     case dah:
                         readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
                         break;
-                    case eoc: 
+                    case eoc:
                         readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
                         break;
                 }
