@@ -79,33 +79,47 @@ static int run(const struct dc_posix_env *env, struct dc_error *err)
 
     while (readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair)) {
         dc_write(env, err, STDOUT_FILENO, &currentBitPair, 1);
-        switch (currentBitPair) {
-            case dit:
-                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-                switch (currentBitPair) {
-                    case dit:
-                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-                        break;
-                    case dah:
-                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-                        break;
-                    case eoc:
-                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-                        break;
-                }
-                break;
-            case dah:
-                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-                break;
-            case space:
-                dc_write(env, err, STDOUT_FILENO, " ", 1);
-                break;
-            case eoc: // eoc at the beginning of new character signifies end of file
-                return EXIT_SUCCESS;
-                break;
-            default:
-                return EXIT_FAILURE;
+
+        // huffman tree if else loop
+        if (currentBitPair == dit) {
+            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+        } else if (currentBitPair == dah){
+            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+        } else if (currentBitPair == space) {
+            dc_write(env, err, STDOUT_FILENO, " ", 1);
+        } else {
+            // either eoc char or something not specified. return
+            return EXIT_SUCCESS;
         }
+//        switch (currentBitPair) {
+//            case dit:
+//                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+//                switch (currentBitPair) {
+//                    case dit:
+//                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+//                        break;
+//                    case dah:
+//                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+//                        break;
+//                    case eoc:
+//                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+//                        break;
+//                }
+//                break;
+//            case dah:
+//                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+//                break;
+//            case space:
+//                dc_write(env, err, STDOUT_FILENO, " ", 1);
+//                break;
+//            case eoc: // eoc at the beginning of new character signifies end of file
+//                return EXIT_SUCCESS;
+//                break;
+//            default:
+//                return EXIT_FAILURE;
+//        }
 
     }
 
