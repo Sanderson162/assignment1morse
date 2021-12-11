@@ -98,11 +98,10 @@ static int run(const struct dc_posix_env *env, struct dc_error *err)
                 readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
                 break;
             case space:
-                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
                 dc_write(env, err, STDOUT_FILENO, " ", 1);
                 break;
-            case eoc: // eoc at the beginning of new character? gotta be end of file
-                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+            case eoc: // eoc at the beginning of new character signifies end of file
+                return EXIT_SUCCESS;
                 break;
             default:
                 return EXIT_FAILURE;
