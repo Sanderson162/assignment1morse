@@ -81,51 +81,526 @@ static int run(const struct dc_posix_env *env, struct dc_error *err)
         dc_write(env, err, STDOUT_FILENO, &currentBitPair, 1);
 
         // huffman tree if else loop
-        if (currentBitPair == dit) {
+        if (currentBitPair == dit) { // .
             readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+            if (currentBitPair == dit) { // ..
+                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                if (currentBitPair == dit) { // ...
+                    readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                    if (currentBitPair == dit) { // ....
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // .....
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // ......
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // .....-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // 5
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '5', 1);
+                            }
+                        } else if (currentBitPair == dah){ // ....-
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // ....-.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // ....--
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // 4
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '4', 1);
+                            }
+                        } else { // H
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'H', 1);
+                        }
+                    } else if (currentBitPair == dah){ // ...-
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // ...-.
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            // N/A
+                        } else if (currentBitPair == dah){ // ...--
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // ...--.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // ...---
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // 3
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '3', 1);
+                            }
+                        } else { // V
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'V', 1);
+                        }
+                    } else { // S
+                        // either eoc char or something not specified. assume eoc
+                        dc_write(env, err, STDOUT_FILENO, 'S', 1);
+                    }
+                } else if (currentBitPair == dah){ // ..-
+                    readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                    if (currentBitPair == dit) { // ..-.
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // ..-..
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            // N/A
+                        } else if (currentBitPair == dah){ // ..-.-
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            // N/A
+                        } else { // F
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'F', 1);
+                        }
+                    } else if (currentBitPair == dah){ // ..--
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // ..--.
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // ..--..
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, '?', 1);
+                                }
+                            } else if (currentBitPair == dah){ // ..--.-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // N/A
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                        } else if (currentBitPair == dah){ // ..---
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // ..---.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // ..----
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // 2
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '2', 1);
+                            }
+                        } else { // N/A
+                            // either eoc char or something not specified. assume eoc
+                            //dc_write(env, err, STDOUT_FILENO, '', 1);
+                        }
+                    } else { // U
+                        // either eoc char or something not specified. assume eoc
+                        dc_write(env, err, STDOUT_FILENO, 'U', 1);
+                    }
+                } else { // I
+                    // either eoc char or something not specified. assume eoc
+                    dc_write(env, err, STDOUT_FILENO, 'I', 1);
+                }
+            } else if (currentBitPair == dah){ // .-
+                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                if (currentBitPair == dit) { // .-.
+                    readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                    if (currentBitPair == dit) { // .-..
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // .-...
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // .-....
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // .-...-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // &
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '&', 1);
+                            }
+                        } else if (currentBitPair == dah){ // .-..-
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // .-..-.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, '"', 1);
+                                }
+                            } else if (currentBitPair == dah){ // .-..--
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
 
-        } else if (currentBitPair == dah){
+                            } else { // N/A
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                        } else { // L
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'L', 1);
+                        }
+                    } else if (currentBitPair == dah){ // .-.-
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // .-.-.
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // .-.-..
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                            } else if (currentBitPair == dah){ // .-.-.-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, '.', 1);
+                                }
+                            } else { // +
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '+', 1);
+                            }
+                        } else if (currentBitPair == dah){ // .-.--
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                        } else { // \n
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, '\n', 1);
+                        }
+                    } else { // R
+                        // either eoc char or something not specified. assume eoc
+                        dc_write(env, err, STDOUT_FILENO, 'R', 1);
+                    }
+                } else if (currentBitPair == dah){ // .--
+                    readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                    if (currentBitPair == dit) { // .--.
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // .--..
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // .--...
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // .--..-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { //
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                        } else if (currentBitPair == dah){ // .--.-
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // .--.-.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, '@', 1);
+                                }
+                            } else if (currentBitPair == dah){ // .--.--
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                            } else { // N/A
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                        } else { // L
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'P', 1);
+                        }
+                    } else if (currentBitPair == dah){ // .---
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // .---.
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // .---..
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                            } else if (currentBitPair == dah){ // .---.-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            } else { // N/A
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                        } else if (currentBitPair == dah){ // .----
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // .----.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, '`', 1);
+                                }
+                            } else if (currentBitPair == dah){ // .-----
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                            } else { // 1
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '1', 1);
+                            }
+                        } else { // J
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'J', 1);
+                        }
+                    } else { // W
+                        // either eoc char or something not specified. assume eoc
+                        dc_write(env, err, STDOUT_FILENO, 'W', 1);
+                    }
+                } else { // A
+                    // either eoc char or something not specified. assume eoc
+                    dc_write(env, err, STDOUT_FILENO, 'A', 1);
+                }
+            } else { // E
+                // either eoc char or something not specified. assume eoc
+                dc_write(env, err, STDOUT_FILENO, 'E', 1);
+            }
+        } else if (currentBitPair == dah){ // -
             readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+            if (currentBitPair == dit) { // -.
+                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                if (currentBitPair == dit) { // -..
+                    readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                    if (currentBitPair == dit) { // -...
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // -....
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // -.....
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // -....-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, '-', 1);
+                                }
+                            } else { // 6
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '6', 1);
+                            }
+                        } else if (currentBitPair == dah){ // -...-
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // -...-.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // -...--
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // =
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '=', 1);
+                            }
+                        } else { // B
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'B', 1);
+                        }
+                    } else if (currentBitPair == dah){ // -..-
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // -..-.
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // -..-..
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // -..-.-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // /
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '/', 1);
+                            }
+                            // N/A
+                        } else if (currentBitPair == dah){ // -..--
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            // N/A
+                        } else { // V
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'X', 1);
+                        }
+                    } else { // S
+                        // either eoc char or something not specified. assume eoc
+                        dc_write(env, err, STDOUT_FILENO, 'D', 1);
+                    }
+                } else if (currentBitPair == dah){ // -.-
+                    readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                    if (currentBitPair == dit) { // -.-.
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // -.-..
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            // N/A
+                        } else if (currentBitPair == dah){ // -.-.-
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // -.-.-.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // -.-.--
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, '!', 1);
+                                }
+                                // N/A
+                            } else { //
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                            // N/A
+                        } else { // F
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'C', 1);
+                        }
+                    } else if (currentBitPair == dah){ // -.--
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // -.--.
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // -.--..
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // -.--.-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, ')', 1);
+                                }
+                            } else { // (
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '(', 1);
+                            }
+                        } else if (currentBitPair == dah){ // -.---
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // -.---.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // -.----
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { //
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                        } else { // Y
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'Y', 1);
+                        }
+                    } else { // K
+                        // either eoc char or something not specified. assume eoc
+                        dc_write(env, err, STDOUT_FILENO, 'K', 1);
+                    }
+                } else { // N
+                    // either eoc char or something not specified. assume eoc
+                    dc_write(env, err, STDOUT_FILENO, 'N', 1);
+                }
+            } else if (currentBitPair == dah){ // --
+                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                if (currentBitPair == dit) { // --.
+                    readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                    if (currentBitPair == dit) { // --..
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // --...
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // --....
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else if (currentBitPair == dah){ // --...-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // 7
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '7', 1);
+                            }
+                        } else if (currentBitPair == dah){ // --..-
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // --..-.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
 
+                            } else if (currentBitPair == dah){ // --..--
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, ',', 1);
+                                }
+                            } else { // N/A
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                        } else { // L
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'Z', 1);
+                        }
+                    } else if (currentBitPair == dah){ // --.-
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // --.-.
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                        } else if (currentBitPair == dah){ // --.--
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                        } else { // Q
+                            // either eoc char or something not specified. assume eoc
+                            dc_write(env, err, STDOUT_FILENO, 'Q', 1);
+                        }
+                    } else { // G
+                        // either eoc char or something not specified. assume eoc
+                        dc_write(env, err, STDOUT_FILENO, 'G', 1);
+                    }
+                } else if (currentBitPair == dah){ // ---
+                    readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                    if (currentBitPair == dit) { // ---.
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // ---..
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // ---...
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                if (currentBitPair == eoc) {
+                                    dc_write(env, err, STDOUT_FILENO, ':', 1);
+                                }
+                                // N/A
+                            } else if (currentBitPair == dah){ // ---..-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                                // N/A
+                            } else { // 8
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '8', 1);
+                            }
+                        } else if (currentBitPair == dah){ // ---.-
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // ---.-.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                            } else if (currentBitPair == dah){ // ---.--
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                            } else { // N/A
+                                // either eoc char or something not specified. assume eoc
+                                //dc_write(env, err, STDOUT_FILENO, '', 1);
+                            }
+                        } else { //
+                            // either eoc char or something not specified. assume eoc
+                            //dc_write(env, err, STDOUT_FILENO, '', 1);
+                        }
+                    } else if (currentBitPair == dah){ // ----
+                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                        if (currentBitPair == dit) { // ----.
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // ----..
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                            } else if (currentBitPair == dah){ // ----.-
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            } else { // 9
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '9', 1);
+                            }
+                        } else if (currentBitPair == dah){ // -----
+                            readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            if (currentBitPair == dit) { // -----.
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+                            } else if (currentBitPair == dah){ // ------
+                                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
+
+                            } else { //
+                                // either eoc char or something not specified. assume eoc
+                                dc_write(env, err, STDOUT_FILENO, '0', 1);
+                            }
+                        } else { // J
+                            // either eoc char or something not specified. assume eoc
+                            //dc_write(env, err, STDOUT_FILENO, 'J', 1);
+                        }
+                    } else { // O
+                        // either eoc char or something not specified. assume eoc
+                        dc_write(env, err, STDOUT_FILENO, 'O', 1);
+                    }
+                } else { // M
+                    // either eoc char or something not specified. assume eoc
+                    dc_write(env, err, STDOUT_FILENO, 'M', 1);
+                }
+            } else { // E
+                // either eoc char or something not specified. assume eoc
+                dc_write(env, err, STDOUT_FILENO, 'T', 1);
+            }
         } else if (currentBitPair == space) {
             dc_write(env, err, STDOUT_FILENO, " ", 1);
         } else {
             // either eoc char or something not specified. return
             return EXIT_SUCCESS;
         }
-//        switch (currentBitPair) {
-//            case dit:
-//                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-//                switch (currentBitPair) {
-//                    case dit:
-//                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-//                        break;
-//                    case dah:
-//                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-//                        break;
-//                    case eoc:
-//                        readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-//                        break;
-//                }
-//                break;
-//            case dah:
-//                readNextBitPair(env, err, &currentPos, &byteBuffer, &currentBitPair);
-//                break;
-//            case space:
-//                dc_write(env, err, STDOUT_FILENO, " ", 1);
-//                break;
-//            case eoc: // eoc at the beginning of new character signifies end of file
-//                return EXIT_SUCCESS;
-//                break;
-//            default:
-//                return EXIT_FAILURE;
-//        }
-
     }
-
-
-
-
     return EXIT_SUCCESS;
 }
 
